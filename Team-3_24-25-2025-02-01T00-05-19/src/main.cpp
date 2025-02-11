@@ -34,6 +34,10 @@ float drive_power = 1;
 bool l_wing_in = true;
 bool r_wing_in = true;
 bool goal_grabbed = false;
+bool isRed = true;
+bool isPos = true;
+bool isAWP = true;
+bool brainPressed = false;
 
 // Colour sensor function
 void senseColour(void) {
@@ -80,7 +84,7 @@ bool goal_grab(bool goal_grabbed) {
 void auton_blue_negative(void) {
   // Autonomous Program for positioning on the Blue Alliance Negative Corner area
   driveForwardOrBack(-50);
-  wait(1.7, sec);
+  wait(2.2, sec);
   driveForwardOrBack(0);
   goal_grabbed = goal_grab(goal_grabbed);
   driveForwardOrBack(50);
@@ -90,20 +94,19 @@ void auton_blue_negative(void) {
   intake_spinner.setVelocity(-100, percent);
   wait(1, sec);
   driveLeftOrRight(20);
-  wait(1.55, sec);
+  intake.setVelocity(75, percent);
+  wait(0.4, sec);
+  intake.setVelocity(-75, percent);
+  wait(0.35, sec);
   driveLeftOrRight(0);
   driveForwardOrBack(50);
   intake.setVelocity(-75, percent);
   intake_spinner.setVelocity(-100, percent);
-  wait(1.5, sec);
-  intake_spinner.setVelocity(100, percent);
+  wait(0.95, sec);
+  intake_spinner.setVelocity(-100, percent);
   wait(0.2, sec);
-  driveForwardOrBack(-50);
-  wait(0.4, sec);
-  driveForwardOrBack(50);
-  wait(0.3, sec);
   driveForwardOrBack(0);
-  wait(3, sec);
+  wait(4, sec);
   intake.setVelocity(0, percent);
   intake_spinner.setVelocity(0, percent);
   // driveLeftOrRight(20);
@@ -122,32 +125,31 @@ void auton_blue_negative(void) {
 void auton_red_negative(void) {
   // Autonomous Program for positioning on the Red Alliance Negative Corner area
   driveForwardOrBack(-50);
-  wait(1.5, sec);
+  wait(2.2, sec);
   driveForwardOrBack(0);
   goal_grabbed = goal_grab(goal_grabbed);
-  intake.setVelocity(-100, percent);
+  driveForwardOrBack(50);
+  wait(0.2, sec);
+  driveForwardOrBack(0);
+  intake.setVelocity(-75, percent);
   intake_spinner.setVelocity(-100, percent);
   wait(1, sec);
   driveLeftOrRight(-20);
-  wait(1.55, sec);
+  intake.setVelocity(75, percent);
+  wait(0.4, sec);
+  intake.setVelocity(-75, percent);
+  wait(0.35, sec);
   driveLeftOrRight(0);
   driveForwardOrBack(50);
-  intake.setVelocity(-100, percent);
+  intake.setVelocity(-75, percent);
   intake_spinner.setVelocity(-100, percent);
-  wait(1.3, sec);
+  wait(0.95, sec);
+  intake_spinner.setVelocity(-100, percent);
+  wait(0.2, sec);
   driveForwardOrBack(0);
-  wait(5, sec);
+  wait(4, sec);
   intake.setVelocity(0, percent);
   intake_spinner.setVelocity(0, percent);
-  driveForwardOrBack(-60);
-  wait(0.25, sec);
-  driveForwardOrBack(60);
-  wait(0.25, sec);
-  driveForwardOrBack(0);
-  driveLeftOrRight(-20);
-  wait(1.55, sec);
-  driveLeftOrRight(0);
-  driveForwardOrBack(50);
   // intake.setVelocity(-100, percent);
   // intake_spinner.setVelocity(-100, percent);
   // wait(1.1, sec);
@@ -241,11 +243,19 @@ void autonomous(void) {
   intake.setVelocity(0, percent);
   intake_spinner.setVelocity(0, percent);
 
-  // Starting on the Blue Alliance Positive end or the Red Alliance Negative end
-  // auton_blue_positive_red_negative();
-
-  // Starting on the Red Alliance Positive end or the Blue Alliance Negative end
-  auton_blue_negative();
+  // Check what autonomous has been selected
+  if (isRed == true && isPos == true) {
+    auton_blue_negative();
+  }
+  if (isRed == true && isPos == false) {
+    auton_red_negative();
+  }
+  if (isRed == false && isPos == true) {
+    auton_red_negative();
+  }
+  if (isRed == false && isPos == false) {
+    auton_blue_negative();
+  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -278,10 +288,10 @@ void usercontrol(void) {
     bl.spin(forward, drive_power * Controller1.Axis3.position(percent) - (drive_power * 0.5 * Controller1.Axis1.position(percent)), percent);
     br.spin(forward, drive_power * Controller1.Axis3.position(percent) + (drive_power * 0.5 * Controller1.Axis1.position(percent)), percent);
 
-    if (Controller1.ButtonR2.pressing()) {
+    if (Controller1.ButtonR1.pressing()) {
       intake.setVelocity(-100, percent);
       intake_spinner.setVelocity(-100, percent);
-    } else if (Controller1.ButtonR1.pressing()) {
+    } else if (Controller1.ButtonR2.pressing()) {
       intake.setVelocity(100, percent);
       intake_spinner.setVelocity(100, percent);
     } else {
@@ -312,6 +322,37 @@ int main() {
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
+    Brain.Screen.clearScreen();
+    if (isRed == true) {
+      Brain.Screen.setFillColor(red);
+    } else {
+      Brain.Screen.setFillColor(blue);
+    }
+    Brain.Screen.drawRectangle(0, 0, 480, 272);
+
+    Brain.Screen.setFillColor(black);
+    Brain.Screen.drawRectangle(0, 116, 480, 40);
+    if (isPos == true) {
+      Brain.Screen.drawRectangle(220, 0, 40, 272);
+    }
+
+    if (isAWP) {
+      Brain.Screen.setFont(mono60);
+      Brain.Screen.print("AWP");
+      Brain.Screen.setCursor(1, 1);
+    }
+
+    if (Brain.Screen.pressing() && brainPressed == false) {
+      if (isRed && !isAWP) {
+        isPos = !isPos;
+      }
+      if (!isAWP) {
+        isRed = !isRed;
+      }
+      isAWP = !isAWP;
+    }
+    brainPressed = Brain.Screen.pressing();
+    
     wait(100, msec);
   }
 }
