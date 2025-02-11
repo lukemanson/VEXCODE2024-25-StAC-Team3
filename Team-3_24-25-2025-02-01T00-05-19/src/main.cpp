@@ -159,42 +159,24 @@ void auton_red_negative(void) {
   // intake_spinner.setVelocity(0, percent);
 }
 
-void auton_red_positive_blue_negative(void) {
-  // Autonomous Program for positioning on the Red Alliance Positive Corner area
+void auton_blue_negative_awp(void) {
   driveForwardOrBack(-50);
-  wait(1.5, sec);
-  driveForwardOrBack(0);
-  goal_grabbed = goal_grab(goal_grabbed);
-  driveLeftOrRight(20);
-  wait(1.53, sec);
-  driveLeftOrRight(0);
-  driveForwardOrBack(50);
-  intake.setVelocity(-100, percent);
-  intake_spinner.setVelocity(-100, percent);
-  wait(1.3, sec);
-  driveForwardOrBack(0);
-  wait(2.5, sec);
-  driveForwardOrBack(-60);
-  wait(0.25, sec);
-  driveForwardOrBack(60);
-  wait(0.25, sec);
-  driveForwardOrBack(0);
-  driveLeftOrRight(20);
+  intake_spinner.setVelocity(100, percent);
   wait(1, sec);
+  driveForwardOrBack(0);
+  driveLeftOrRight(40);
+  wait(0.75, sec);
   driveLeftOrRight(0);
-  driveForwardOrBack(50);
+  driveForwardOrBack(-40);
+  wait(1.1, sec);
   intake.setVelocity(-100, percent);
-  intake_spinner.setVelocity(-100, percent);
-  wait(0.6, sec);
-  driveForwardOrBack(0);
-  wait(5, sec);
-  intake.setVelocity(0, percent);
-  intake_spinner.setVelocity(0, percent);
-  driveForwardOrBack(-60);
-  wait(0.25, sec);
-  driveForwardOrBack(60);
-  wait(0.25, sec);
-  driveForwardOrBack(0);
+  wait(1.5, sec);
+  driveForwardOrBack(20);
+  wait(0.5, sec);
+}
+
+void auton_red_negative_awp(void) {
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -240,20 +222,36 @@ void autonomous(void) {
   fr.setVelocity(0, percent);
   bl.setVelocity(0, percent);
   br.setVelocity(0, percent);
+  fl.setStopping(coast);
+  fr.setStopping(coast);
+  bl.setStopping(coast);
+  br.setStopping(coast);
   intake.setVelocity(0, percent);
   intake_spinner.setVelocity(0, percent);
 
   // Check what autonomous has been selected
-  if (isRed == true && isPos == true) {
+  if (isRed == true && isPos == true && isAWP == true) {
+    auton_blue_negative_awp();
+  }
+  if (isRed == true && isPos == true && isAWP == false) {
     auton_blue_negative();
   }
-  if (isRed == true && isPos == false) {
+  if (isRed == true && isPos == false && isAWP == true) {
+    auton_red_negative_awp();
+  }
+  if (isRed == true && isPos == false && isAWP == false) {
     auton_red_negative();
   }
-  if (isRed == false && isPos == true) {
+  if (isRed == false && isPos == true && isAWP == true) {
+    auton_red_negative_awp();
+  }
+  if (isRed == false && isPos == true && isAWP == false) {
     auton_red_negative();
   }
-  if (isRed == false && isPos == false) {
+  if (isRed == false && isPos == false && isAWP == true) {
+    auton_blue_negative_awp();
+  }
+  if (isRed == false && isPos == false && isAWP == false) {
     auton_blue_negative();
   }
 }
@@ -269,6 +267,10 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
+  fl.setStopping(brake);
+  fr.setStopping(brake);
+  bl.setStopping(brake);
+  br.setStopping(brake);
   Controller1.Screen.print("Driver Control! ");
   // grabby_grab.spin(forward);
   while (1) {
