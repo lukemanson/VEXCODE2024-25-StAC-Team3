@@ -84,7 +84,7 @@ bool goal_grab(bool goal_grabbed) {
 void auton_blue_negative(void) {
   // Autonomous Program for positioning on the Blue Alliance Negative Corner area
   driveForwardOrBack(-50);
-  wait(2.2, sec);
+  wait(1.8, sec);
   driveForwardOrBack(0);
   goal_grabbed = goal_grab(goal_grabbed);
   driveForwardOrBack(50);
@@ -95,17 +95,17 @@ void auton_blue_negative(void) {
   wait(1, sec);
   driveLeftOrRight(20);
   intake.setVelocity(75, percent);
-  wait(0.4, sec);
+  wait(0.8, sec);
   intake.setVelocity(-75, percent);
   wait(0.35, sec);
   driveLeftOrRight(0);
   driveForwardOrBack(50);
   intake.setVelocity(-75, percent);
   intake_spinner.setVelocity(-100, percent);
-  wait(0.95, sec);
-  intake_spinner.setVelocity(-100, percent);
-  wait(0.2, sec);
+  wait(1.2, sec);
   driveForwardOrBack(0);
+  wait(0.5, sec);
+  intake_spinner.setVelocity(100, percent);
   wait(4, sec);
   intake.setVelocity(0, percent);
   intake_spinner.setVelocity(0, percent);
@@ -125,7 +125,7 @@ void auton_blue_negative(void) {
 void auton_red_negative(void) {
   // Autonomous Program for positioning on the Red Alliance Negative Corner area
   driveForwardOrBack(-50);
-  wait(2.2, sec);
+  wait(1.8, sec);
   driveForwardOrBack(0);
   goal_grabbed = goal_grab(goal_grabbed);
   driveForwardOrBack(50);
@@ -136,17 +136,17 @@ void auton_red_negative(void) {
   wait(1, sec);
   driveLeftOrRight(-20);
   intake.setVelocity(75, percent);
-  wait(0.4, sec);
+  wait(0.8, sec);
   intake.setVelocity(-75, percent);
   wait(0.35, sec);
   driveLeftOrRight(0);
   driveForwardOrBack(50);
   intake.setVelocity(-75, percent);
   intake_spinner.setVelocity(-100, percent);
-  wait(0.95, sec);
-  intake_spinner.setVelocity(-100, percent);
-  wait(0.2, sec);
+  wait(1.2, sec);
   driveForwardOrBack(0);
+  wait(0.5, sec);
+  intake_spinner.setVelocity(100, percent);
   wait(4, sec);
   intake.setVelocity(0, percent);
   intake_spinner.setVelocity(0, percent);
@@ -162,21 +162,89 @@ void auton_red_negative(void) {
 void auton_blue_negative_awp(void) {
   driveForwardOrBack(-50);
   intake_spinner.setVelocity(100, percent);
-  wait(1, sec);
+  wait(1.05, sec);
   driveForwardOrBack(0);
   driveLeftOrRight(40);
-  wait(0.75, sec);
+  wait(0.7, sec);
   driveLeftOrRight(0);
   driveForwardOrBack(-40);
-  wait(1.1, sec);
+  wait(0.7, sec);
   intake.setVelocity(-100, percent);
-  wait(1.5, sec);
+  wait(0.8, sec);
+  intake.setVelocity(100, percent);
+  wait(0.25, sec);
+  intake.setVelocity(0, percent);
   driveForwardOrBack(20);
-  wait(0.5, sec);
+  wait(0.95, sec);
+  driveForwardOrBack(0);
+  driveLeftOrRight(-60);
+  wait(1.03, sec);
+  driveLeftOrRight(0);
+  driveForwardOrBack(-70);
+  wait(1.3, sec);
+  driveForwardOrBack(0);
+  wait(0.2, sec);
+  goal_grabbed = goal_grab(goal_grabbed);
+  wait(1, sec);
+  driveLeftOrRight(75);
+  wait(0.53, sec);
+  driveLeftOrRight(0);
+  driveForwardOrBack(70);
+  intake.setVelocity(-100, percent);
+  intake_spinner.setVelocity(-100, percent);
+  wait(0.3, sec);
+  driveForwardOrBack(0);
+  wait(3, sec);
+  driveLeftOrRight(-60);
+  wait(0.78, sec);
+  driveLeftOrRight(0);
+  driveForwardOrBack(90);
+  wait(0.9, sec);
+  driveForwardOrBack(0);
 }
 
 void auton_red_negative_awp(void) {
-
+  driveForwardOrBack(-50);
+  intake_spinner.setVelocity(100, percent);
+  wait(1.1, sec);
+  driveForwardOrBack(0);
+  driveLeftOrRight(-40);
+  wait(0.7, sec);
+  driveLeftOrRight(0);
+  driveForwardOrBack(-40);
+  wait(0.7, sec);
+  intake.setVelocity(-100, percent);
+  wait(0.8, sec);
+  intake.setVelocity(100, percent);
+  wait(0.25, sec);
+  intake.setVelocity(0, percent);
+  driveForwardOrBack(20);
+  wait(0.95, sec);
+  driveForwardOrBack(0);
+  driveLeftOrRight(60);
+  wait(1.03, sec);
+  driveLeftOrRight(0);
+  driveForwardOrBack(-70);
+  wait(1.3, sec);
+  driveForwardOrBack(0);
+  wait(0.2, sec);
+  goal_grabbed = goal_grab(goal_grabbed);
+  wait(1, sec);
+  driveLeftOrRight(-75);
+  wait(0.53, sec);
+  driveLeftOrRight(0);
+  driveForwardOrBack(70);
+  intake.setVelocity(-100, percent);
+  intake_spinner.setVelocity(-100, percent);
+  wait(0.3, sec);
+  driveForwardOrBack(0);
+  wait(3, sec);
+  driveLeftOrRight(60);
+  wait(0.78, sec);
+  driveLeftOrRight(0);
+  driveForwardOrBack(90);
+  wait(0.9, sec);
+  driveForwardOrBack(0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -226,8 +294,10 @@ void autonomous(void) {
   fr.setStopping(coast);
   bl.setStopping(coast);
   br.setStopping(coast);
-  intake.setVelocity(0, percent);
+  intake.setVelocity(100, percent);
   intake_spinner.setVelocity(0, percent);
+  wait(0.2, sec);
+  intake.setVelocity(0, percent);
 
   // Check what autonomous has been selected
   if (isRed == true && isPos == true && isAWP == true) {
@@ -290,12 +360,14 @@ void usercontrol(void) {
     bl.spin(forward, drive_power * Controller1.Axis3.position(percent) - (drive_power * 0.5 * Controller1.Axis1.position(percent)), percent);
     br.spin(forward, drive_power * Controller1.Axis3.position(percent) + (drive_power * 0.5 * Controller1.Axis1.position(percent)), percent);
 
-    if (Controller1.ButtonR1.pressing()) {
-      intake.setVelocity(-100, percent);
+    if (Controller1.ButtonX.pressing()) {
       intake_spinner.setVelocity(-100, percent);
     } else if (Controller1.ButtonR2.pressing()) {
       intake.setVelocity(100, percent);
       intake_spinner.setVelocity(100, percent);
+    } else if (Controller1.ButtonR1.pressing()) {
+      intake.setVelocity(-100, percent);
+      intake_spinner.setVelocity(-100, percent);
     } else {
       intake.setVelocity(0, percent);
       intake_spinner.setVelocity(0, percent);
