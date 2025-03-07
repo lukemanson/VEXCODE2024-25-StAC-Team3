@@ -67,6 +67,18 @@ Discarded input sections
                 0x00000000       0xf0 build/src/main.o
  .ARM.exidx.text._Z11senseColourv
                 0x00000000        0x8 build/src/main.o
+ .text._Z19auton_blue_negativev
+                0x00000000      0x270 build/src/main.o
+ .ARM.exidx.text._Z19auton_blue_negativev
+                0x00000000        0x8 build/src/main.o
+ .text._Z18auton_red_negativev
+                0x00000000      0x270 build/src/main.o
+ .ARM.exidx.text._Z18auton_red_negativev
+                0x00000000        0x8 build/src/main.o
+ .text._Z6skillsv
+                0x00000000      0x2d0 build/src/main.o
+ .ARM.exidx.text._Z6skillsv
+                0x00000000        0x8 build/src/main.o
  .data.l_wing_in
                 0x00000000        0x1 build/src/main.o
  .data.r_wing_in
@@ -2536,18 +2548,18 @@ Linker script and memory map
  .text._Z9goal_grabb
                 0x0380022c       0x74 build/src/main.o
                 0x0380022c                goal_grab(bool)
- .text._Z19auton_blue_negativev
-                0x038002a0      0x228 build/src/main.o
-                0x038002a0                auton_blue_negative()
- .text._Z18auton_red_negativev
-                0x038004c8      0x228 build/src/main.o
-                0x038004c8                auton_red_negative()
  .text._Z23auton_blue_negative_awpv
-                0x038006f0      0x2d8 build/src/main.o
-                0x038006f0                auton_blue_negative_awp()
+                0x038002a0      0x2d8 build/src/main.o
+                0x038002a0                auton_blue_negative_awp()
  .text._Z22auton_red_negative_awpv
-                0x038009c8      0x2d8 build/src/main.o
-                0x038009c8                auton_red_negative_awp()
+                0x03800578      0x2d8 build/src/main.o
+                0x03800578                auton_red_negative_awp()
+ .text._Z19auton_blue_positivev
+                0x03800850      0x228 build/src/main.o
+                0x03800850                auton_blue_positive()
+ .text._Z18auton_red_positivev
+                0x03800a78      0x228 build/src/main.o
+                0x03800a78                auton_red_positive()
  .text._Z9pre_autonv
                 0x03800ca0       0x9c build/src/main.o
                 0x03800ca0                pre_auton()
@@ -3372,16 +3384,16 @@ Linker script and memory map
  .ARM.exidx.text._Z9goal_grabb
                 0x0380430c        0x0 build/src/main.o
                                   0x8 (size before relaxing)
- .ARM.exidx.text._Z19auton_blue_negativev
-                0x0380430c        0x0 build/src/main.o
-                                  0x8 (size before relaxing)
- .ARM.exidx.text._Z18auton_red_negativev
-                0x0380430c        0x0 build/src/main.o
-                                  0x8 (size before relaxing)
  .ARM.exidx.text._Z23auton_blue_negative_awpv
                 0x0380430c        0x0 build/src/main.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._Z22auton_red_negative_awpv
+                0x0380430c        0x0 build/src/main.o
+                                  0x8 (size before relaxing)
+ .ARM.exidx.text._Z19auton_blue_positivev
+                0x0380430c        0x0 build/src/main.o
+                                  0x8 (size before relaxing)
+ .ARM.exidx.text._Z18auton_red_positivev
                 0x0380430c        0x0 build/src/main.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._Z9pre_autonv
